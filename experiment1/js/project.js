@@ -75,4 +75,4 @@ class MyProjectClass {
   }
 
 
-window.onload = main;
+main();
