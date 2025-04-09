@@ -34,19 +34,21 @@ function main() {
     loots: ["good points", "Best Dad Mugs", "copper coins", "cow leathers but the bad kind", "dudes"],
     baddies: ["dragons", "blobs of slime", "just some regular people", "a singular rabbit", "like a lot of bears like too many bears"],
     message: ["whimper", "wechat", "whistle", "request", "twitter post"],
+    
   };
-
+  
   const template = `Please $adventurer, listen to my $message!
-
-I come from $pre$post where the $people folk are in need your help. Their town has been taken over by $baddies. We need you to go there, taking this totally free $item, and help them in anyway you can.
-
-I'll reward you with $num $looty $loots. This is a good quest I swear!`;
-
-  const box = document.getElementById("box");
-  const clicker = document.getElementById("clicker");
-
+  
+  I come from $pre$post where the $people folk are in need your help. Their town has been taken over by $baddies. We need you to go there, taking this totally free $item, and help them in anyway you can.
+  
+  I'll reward you with $num $looty $loots. This is a good quest I swear!
+  `;
+  
+  
+  // STUDENTS: You don't need to edit code below this line.
+  
   const slotPattern = /\$(\w+)/;
-
+  
   function replacer(match, name) {
     let options = fillers[name];
     if (options) {
@@ -55,17 +57,21 @@ I'll reward you with $num $looty $loots. This is a good quest I swear!`;
       return `<UNKNOWN:${name}>`;
     }
   }
-
+  
   function generate() {
     let story = template;
     while (story.match(slotPattern)) {
       story = story.replace(slotPattern, replacer);
     }
+  
+    /* global box */
     box.innerText = story;
   }
-
+  
+  /* global clicker */
   clicker.onclick = generate;
+  
   generate();
 }
 
-window.onload = main;
+main();
