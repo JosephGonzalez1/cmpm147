@@ -22,7 +22,6 @@ class MyProjectClass {
   }
 }
 
-function main() {
   function main() {
     const fillers = {
       adventurer: ["Person", "Guy", "AI", "Nomad", "Hollowed One", "Fella", "Villager"],
@@ -74,6 +73,6 @@ function main() {
     
     generate();
   }
-}
+
 
 window.onload = main;
