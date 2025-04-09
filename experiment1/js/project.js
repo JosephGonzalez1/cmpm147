@@ -74,4 +74,4 @@ function main() {
   generate();
 }
 
-main();
+window.onload = main;
