@@ -37,15 +37,10 @@ const mountainColor = "#2f2f2f";
 const waterReflection = "#7e3f7e"; // Muted purple
 
 function setup() {
-  let canvas = createCanvas(800, 300); // or whatever size you prefer
-  canvas.parent("canvas-container");
+  seed = Math.floor(Math.random() * 100000);
+  randomSeed(seed);
 
-  let button = createButton("reimagine");
-  button.parent("canvas-container"); // this is the key part!
-  button.mousePressed(() => {
-    seed++;
-    redraw(); // if you are using noLoop(), otherwise this is optional
-  });
+  noLoop();
 }
 
 function draw() {
