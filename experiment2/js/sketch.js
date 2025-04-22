@@ -26,14 +26,16 @@ class MyClass {
     }
 }
 /* exported setup, draw */
-let seed = 0;
 
-const iceColor = "#cfe9f5";
-const skyTopColor = "#ff5200";     // Orange-red
-const skyMidColor = "#a12c8e";     // Deep purple
-const skyBottomColor = "#24002a";  // Dark purple
-const mountainColor = "#2f2f2f";
-const waterReflection = "#7e3f7e"; // Muted purple
+let seed = 239;
+
+// Colors sampled from the inspiring image
+const skyTopColor = "#f76c2f";       // Orange-pink
+const skyBottomColor = "#432140";    // Deep purple
+const mountainColor = "#2b2e3b";     // Shadowy mountain
+const iceColor = "#b6cdd8";          // Frozen lake surface
+const waterReflection = "#7b4566";   // Warm reflection in water
+const treeColor = "#1c1e1b";         // Dark trees
 
 function setup() {
   createCanvas(400, 200);
@@ -44,48 +46,60 @@ function draw() {
   randomSeed(seed);
   noStroke();
 
-  // Sky Gradient (3-color blend: orange to purple to dark)
+  // --- Sky Gradient
   for (let y = 0; y < height / 2; y++) {
     let inter = map(y, 0, height / 2, 0, 1);
-    let c;
-    if (inter < 0.5) {
-      c = lerpColor(color(skyTopColor), color(skyMidColor), inter * 2);
-    } else {
-      c = lerpColor(color(skyMidColor), color(skyBottomColor), (inter - 0.5) * 2);
-    }
+    let c = lerpColor(color(skyTopColor), color(skyBottomColor), inter);
     stroke(c);
     line(0, y, width, y);
   }
 
-  // Mountains
+  noStroke();
+
+  // --- Mountain
   fill(mountainColor);
   beginShape();
   vertex(0, height / 2);
-  const steps = 10;
+  const steps = 12;
   for (let i = 0; i <= steps; i++) {
     let x = (width * i) / steps;
-    let y = height / 2 - pow(random(), 1.5) * height / 2.5 - height / 20;
+    let y =
+      height / 2 - pow(random(), 1.5) * height / 2.5 - height / 20;
     vertex(x, y);
   }
   vertex(width, height / 2);
   endShape(CLOSE);
 
-  // Ice foreground
+  // --- Ice foreground
   fill(iceColor);
   rect(0, height / 2, width, height / 2);
 
-  // Reflective water patches with purple tint
-  for (let i = 0; i < 5; i++) {
-    let purp = color(waterReflection);
-    purp.setAlpha(150);
-    fill(purp);
+  // --- Reflective water patches
+  for (let i = 0; i < 6; i++) {
+    let c = color(waterReflection);
+    c.setAlpha(160);
+    fill(c);
     let x = random(width);
     let y = random(height / 2, height);
     let w = random(40, 100);
     let h = random(5, 20);
     ellipse(x, y, w, h);
   }
+
+  // --- Trees: animated as if passing by in a train
+  fill(treeColor);
+  let numTrees = 20;
+  let scrub = mouseX / width;
+  for (let i = 0; i < numTrees; i++) {
+    let z = random(0.3, 1); // scale for depth
+    let speed = (scrub / 100 + millis() / 30000) / z;
+    let x = width * ((random() + speed) % 1);
+    let s = width / 40 / z;
+    let y = height / 2 + height / 25 / z;
+    triangle(x, y - s, x - s / 2, y, x + s / 2, y);
+  }
 }
+
 
 function resizeScreen() {
   centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
