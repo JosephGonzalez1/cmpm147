@@ -27,8 +27,6 @@ class MyClass {
 }
 /* exported setup, draw */
 
-let seed;
-
 const iceColor = "#cfe9f5";
 const skyTopColor = "#ff5200";     // Orange-red
 const skyMidColor = "#a12c8e";     // Deep purple
@@ -37,10 +35,8 @@ const mountainColor = "#2f2f2f";
 const waterReflection = "#7e3f7e"; // Muted purple
 
 function setup() {
-  seed = Math.floor(Math.random() * 100000);
-  randomSeed(seed);
-
-  noLoop();
+  createCanvas(400, 200);
+  createButton("reimagine").mousePressed(() => seed++);
 }
 
 function draw() {
