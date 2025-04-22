@@ -26,6 +26,7 @@ class MyClass {
     }
 }
 /* exported setup, draw */
+let seed = 0;
 
 const iceColor = "#cfe9f5";
 const skyTopColor = "#ff5200";     // Orange-red
