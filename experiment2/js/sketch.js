@@ -37,7 +37,7 @@ const mountainColor = "#2f2f2f";
 const waterReflection = "#7e3f7e"; // Muted purple
 
 function setup() {
-  createCanvas(400, 200);
+  createCanvas(40, 20);
   createButton("reimagine").mousePressed(() => seed++);
 }
 
